@@ -1,4 +1,4 @@
 Gyazo
 ================================================================================
 
-Gyazo API wrapper for Golang
+Go library for accessing the Gyazo API
