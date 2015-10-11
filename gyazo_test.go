@@ -20,13 +20,21 @@ func TestNewClient(t *testing.T) {
 func TestNewClientWithEmptyAccessToken(t *testing.T) {
 	_, err := NewClient("")
 	if err == nil {
-		t.Error("Expected error to be returned.")
+		t.Error("Expected error to be returned")
 	}
 }
 
 func TestList(t *testing.T) {
 	c, _ := NewClient("DUMMY_ACCESS_TOKEN")
-	_, err := c.List()
+	_, err := c.List(&ListOptions{Page: 2, PerPage: 50})
+	if err != nil {
+		t.Error(err)
+	}
+}
+
+func TestListWithEmptyListOptins(t *testing.T) {
+	c, _ := NewClient("DUMMY_ACCESS_TOKEN")
+	_, err := c.List(nil)
 	if err != nil {
 		t.Error(err)
 	}

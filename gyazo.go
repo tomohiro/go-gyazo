@@ -5,6 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+
+	"github.com/google/go-querystring/query"
 )
 
 const (
@@ -39,27 +41,39 @@ type Image struct {
 	Type         string `json:"type"`
 }
 
+// ListOptions  specifies the optional parameters to the List
+type ListOptions struct {
+	Page    int `url:"page,omitempty"`
+	PerPage int `url:"per_page,omitempty"`
+}
+
 // NewClient returns a new Gyazo API client.
 func NewClient(token string) (*Client, error) {
-	var err error
 	if token == "" {
 		return nil, errors.New("access token is empty")
 	}
 
 	c := &Client{token, http.DefaultClient, defaultEndpoint, uploadEndpoint}
-	return c, err
+	return c, nil
 }
 
 // List returns user images
-func (c *Client) List() ([]Image, error) {
-	var err error
-
-	url := fmt.Sprintf("%s/api/images", c.DefaultEndpoint)
+func (c *Client) List(opts *ListOptions) (*[]Image, error) {
+	url := c.DefaultEndpoint + "/api/images"
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}
 	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", c.token))
+
+	// Build and set query parameters
+	if opts != nil {
+		params, err := query.Values(opts)
+		if err != nil {
+			return nil, err
+		}
+		req.URL.RawQuery = params.Encode()
+	}
 
 	res, err := c.client.Do(req)
 	if err != nil {
@@ -75,5 +89,5 @@ func (c *Client) List() ([]Image, error) {
 	if err = json.NewDecoder(res.Body).Decode(&list); err != nil {
 		return nil, err
 	}
-	return *list, nil
+	return list, nil
 }
