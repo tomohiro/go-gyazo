@@ -32,7 +32,7 @@ func TestList(t *testing.T) {
 	}
 }
 
-func TestListWithEmptyListOptins(t *testing.T) {
+func TestListWithEmptyListOptions(t *testing.T) {
 	c, _ := NewClient("DUMMY_ACCESS_TOKEN")
 	_, err := c.List(nil)
 	if err != nil {
