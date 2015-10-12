@@ -17,9 +17,6 @@ const (
 
 // Client manages communication with the Gyazo API
 type Client struct {
-	// Gyazo API access token.
-	token string
-
 	// client provides request to API endpoints.
 	client *http.Client
 
@@ -61,7 +58,7 @@ func NewClient(token string) (*Client, error) {
 		oauth2.StaticTokenSource(&oauth2.Token{AccessToken: token}),
 	)
 
-	c := &Client{token, oauthClient, defaultEndpoint, uploadEndpoint}
+	c := &Client{oauthClient, defaultEndpoint, uploadEndpoint}
 	return c, nil
 }
 
