@@ -39,6 +39,8 @@ type Image struct {
 	ThumbURL     string `json:"thumb_url"`
 	URL          string `json:"url"`
 	Type         string `json:"type"`
+	Star         string `json:"star"`
+	CreatedAt    string `json:"created_at"`
 }
 
 // ListOptions specifies the optional parameters to the List.
