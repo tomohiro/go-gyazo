@@ -41,7 +41,7 @@ type Image struct {
 	Type         string `json:"type"`
 }
 
-// ListOptions  specifies the optional parameters to the List
+// ListOptions specifies the optional parameters to the List.
 type ListOptions struct {
 	Page    int `url:"page,omitempty"`
 	PerPage int `url:"per_page,omitempty"`
