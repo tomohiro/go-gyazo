@@ -3,10 +3,10 @@ package gyazo
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"net/http"
 
 	"github.com/google/go-querystring/query"
+	"golang.org/x/oauth2"
 )
 
 const (
@@ -55,7 +55,13 @@ func NewClient(token string) (*Client, error) {
 		return nil, errors.New("access token is empty")
 	}
 
-	c := &Client{token, http.DefaultClient, defaultEndpoint, uploadEndpoint}
+	// Create an OAuth2 client to authentication
+	oauthClient := oauth2.NewClient(
+		oauth2.NoContext,
+		oauth2.StaticTokenSource(&oauth2.Token{AccessToken: token}),
+	)
+
+	c := &Client{token, oauthClient, defaultEndpoint, uploadEndpoint}
 	return c, nil
 }
 
@@ -66,7 +72,6 @@ func (c *Client) List(opts *ListOptions) (*[]Image, error) {
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", c.token))
 
 	// Build and set query parameters
 	if opts != nil {
