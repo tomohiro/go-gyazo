@@ -15,7 +15,7 @@ const (
 	uploadEndpoint  = "https://upload.gyazo.com"
 )
 
-// Client manages communication with the Gyazo API
+// Client manages communication with the Gyazo API.
 type Client struct {
 	// client provides request to API endpoints.
 	client *http.Client
@@ -40,7 +40,7 @@ type Image struct {
 	CreatedAt    string `json:"created_at"`
 }
 
-// ListOptions specifies the optional parameters to the List.
+// ListOptions specifies the optional parameters to `List` method.
 type ListOptions struct {
 	Page    int `url:"page,omitempty"`
 	PerPage int `url:"per_page,omitempty"`
@@ -62,7 +62,7 @@ func NewClient(token string) (*Client, error) {
 	return c, nil
 }
 
-// List returns user images
+// List lists the images the specified user.
 func (c *Client) List(opts *ListOptions) (*[]Image, error) {
 	url := c.DefaultEndpoint + "/api/images"
 	req, err := http.NewRequest("GET", url, nil)
