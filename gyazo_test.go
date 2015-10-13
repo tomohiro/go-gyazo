@@ -52,7 +52,7 @@ func TestList(t *testing.T) {
 	defer teardown()
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(200)
+		w.WriteHeader(http.StatusOK)
 		w.Header().Set("Content-Type", "application/json")
 
 		// This example is response body that from https://gyazo.com/api/docs/image.
