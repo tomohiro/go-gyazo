@@ -15,8 +15,8 @@ func main() {
 		os.Exit(1)
 	}
 	client, _ := gyazo.NewClient(token)
-	images, _ := client.List(nil)
-	for _, v := range *images {
-		fmt.Println(v.PermalinkURL)
+	list, _ := client.List(&gyazo.ListOptions{Page: 1})
+	for _, v := range *list.Images {
+		fmt.Printf("%+v \n", v)
 	}
 }
