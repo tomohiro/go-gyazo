@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Tomohiro/gyazo"
+	"github.com/Tomohiro/go-gyazo/gyazo"
 )
 
 // GYAZO_TOKEN="Your Gyazo access token" go run list.go
