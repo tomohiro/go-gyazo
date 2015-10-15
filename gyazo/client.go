@@ -9,7 +9,6 @@ import (
 )
 
 const (
-	version         = "0.0.1"
 	defaultEndpoint = "https://api.gyazo.com"
 	uploadEndpoint  = "https://upload.gyazo.com"
 )
