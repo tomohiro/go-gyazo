@@ -11,11 +11,16 @@ import (
 func main() {
 	token := os.Getenv("GYAZO_TOKEN")
 	if token == "" {
-		fmt.Fprintf(os.Stderr, "Environment variable `GYAZO_TOKEN` is empty.")
+		fmt.Fprintln(os.Stderr, "Environment variable `GYAZO_TOKEN` is empty.")
 		os.Exit(1)
 	}
+
 	client, _ := gyazo.NewClient(token)
-	list, _ := client.List(&gyazo.ListOptions{Page: 1})
+	list, err := client.List(&gyazo.ListOptions{Page: 1, PerPage: 50})
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err.Error())
+		os.Exit(1)
+	}
 	for _, v := range *list.Images {
 		fmt.Printf("%+v \n", v)
 	}
