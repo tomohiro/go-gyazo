@@ -8,7 +8,7 @@ import (
 	"github.com/google/go-querystring/query"
 )
 
-// An Image represents a uploaded image.
+// Image represents an uploaded image.
 //
 // Gyazo API docs: https://gyazo.com/api/docs/image
 type Image struct {
@@ -21,24 +21,24 @@ type Image struct {
 	CreatedAt    string `json:"created_at"`
 }
 
-// An ErrorResponse reports error caused by API request.
+// ErrorResponse reports error caused by API request.
 type ErrorResponse struct {
 	Status  string
 	Message string `json:"message"`
 }
 
-// Error returns error message.
+// Error returns the error response status and message.
 func (r *ErrorResponse) Error() string {
 	return fmt.Sprintf("%v: %v", r.Status, r.Message)
 }
 
-// List reporesents returned images and headers from `List` API.
+// List represents the returned images and http headers from an API request.
 type List struct {
 	Meta   Meta
 	Images *[]Image
 }
 
-// Meta represents returned http headers from a API request.
+// Meta represents the returned http headers from an API request.
 type Meta struct {
 	TotalCount  int
 	CurrentPage int
@@ -46,7 +46,7 @@ type Meta struct {
 	UserType    string
 }
 
-// ListOptions specifies the optional parameters to `List` API.
+// ListOptions specifies the optional parameters to an API request.
 type ListOptions struct {
 	Page    int `url:"page,omitempty"`
 	PerPage int `url:"per_page,omitempty"`
@@ -91,7 +91,7 @@ func (c *Client) List(opts *ListOptions) (*List, error) {
 	return list, nil
 }
 
-// buildErrorResponse builds error information from responsed body.
+// buildErrorResponse builds an error information from a HTTP response.
 func buildErrorResponse(res *http.Response) error {
 	er := &ErrorResponse{Status: res.Status}
 	if err := json.NewDecoder(res.Body).Decode(er); err != nil {
@@ -100,7 +100,7 @@ func buildErrorResponse(res *http.Response) error {
 	return er
 }
 
-// createMeta creates meta data from response headers.
+// createMeta creates a meta data from a HTTP response headers.
 func createMeta(h http.Header) Meta {
 	return Meta{
 		TotalCount:  atoi(h["X-Total-Count"][0]),

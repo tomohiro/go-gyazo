@@ -18,10 +18,10 @@ type Client struct {
 	// client provides request to API endpoints.
 	client *http.Client
 
-	// DefaultEndpint is Gyazo API endpoint.
+	// DefaultEndpint is the Gyazo API endpoint.
 	DefaultEndpoint string
 
-	// UploadEndpint is Gyazo upload API endpoint.
+	// UploadEndpint is the Gyazo upload API endpoint.
 	UploadEndpoint string
 }
 
@@ -31,7 +31,7 @@ func NewClient(token string) (*Client, error) {
 		return nil, errors.New("access token is empty")
 	}
 
-	// Create an OAuth2 client to authentication
+	// Create an OAuth2 client to authentication.
 	oauthClient := oauth2.NewClient(
 		oauth2.NoContext,
 		oauth2.StaticTokenSource(&oauth2.Token{AccessToken: token}),
@@ -46,7 +46,8 @@ func NewClient(token string) (*Client, error) {
 	return c, nil
 }
 
-// atoi converts argument from string to int.
+// atoi is shorthand for strconv.Atoi(s).
+// Golang package docs: https://golang.org/pkg/strconv/#Atoi
 func atoi(s string) int {
 	i, _ := strconv.Atoi(s)
 	return i
