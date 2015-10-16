@@ -82,3 +82,32 @@ func TestList_InvalidToken(t *testing.T) {
 		t.Errorf("ErrorResponse message is %v, want %v", actual, expected)
 	}
 }
+
+func TestDelete(t *testing.T) {
+	setup()
+	defer teardown()
+
+	mux.HandleFunc("/api/images/8980c52421e452ac3355ca3e5cfe7a0c",
+		func(w http.ResponseWriter, r *http.Request) {
+			// Set 200 OK as HTTP status code.
+			w.WriteHeader(http.StatusOK)
+
+			// Set response body
+			// This example is response body that from https://gyazo.com/api/docs/image.
+			fmt.Fprintln(w, `{
+				"image_id": "8980c52421e452ac3355ca3e5cfe7a0c",
+				"type": "png"
+			}`)
+		},
+	)
+
+	expected := &Image{ID: "8980c52421e452ac3355ca3e5cfe7a0c", Type: "png"}
+	actual, err := client.Delete("8980c52421e452ac3355ca3e5cfe7a0c")
+	if err != nil {
+		t.Fatalf("Delete returned error: %v", err)
+	}
+
+	if !reflect.DeepEqual(actual, expected) {
+		t.Errorf("Delete returned %+v, want %+v", actual, expected)
+	}
+}

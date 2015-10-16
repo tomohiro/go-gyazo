@@ -91,6 +91,32 @@ func (c *Client) List(opts *ListOptions) (*List, error) {
 	return list, nil
 }
 
+// Delete deletes specified an image.
+func (c *Client) Delete(id string) (*Image, error) {
+	url := c.DefaultEndpoint + "/api/images/" + id
+	req, err := http.NewRequest("DELETE", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	res, err := c.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusOK {
+		return nil, buildErrorResponse(res)
+	}
+
+	img := &Image{}
+	if err = json.NewDecoder(res.Body).Decode(img); err != nil {
+		return nil, err
+	}
+
+	return img, nil
+}
+
 // buildErrorResponse builds an error information from a HTTP response.
 func buildErrorResponse(res *http.Response) error {
 	er := &ErrorResponse{Status: res.Status}
