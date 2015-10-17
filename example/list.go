@@ -7,11 +7,11 @@ import (
 	"github.com/Tomohiro/go-gyazo/gyazo"
 )
 
-// GYAZO_TOKEN="Your Gyazo access token" go run list.go
+// GYAZO_ACCESS_TOKEN="Your Gyazo access token" go run list.go
 func main() {
-	token := os.Getenv("GYAZO_TOKEN")
+	token := os.Getenv("GYAZO_ACCESS_TOKEN")
 	if token == "" {
-		fmt.Fprintln(os.Stderr, "Environment variable `GYAZO_TOKEN` is empty.")
+		fmt.Fprintln(os.Stderr, "Environment variable `GYAZO_ACCESS_TOKEN` is empty.")
 		os.Exit(1)
 	}
 
