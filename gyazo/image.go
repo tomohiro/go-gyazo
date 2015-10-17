@@ -1,9 +1,13 @@
 package gyazo
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"mime/multipart"
 	"net/http"
+	"os"
 
 	"github.com/google/go-querystring/query"
 )
@@ -89,6 +93,62 @@ func (c *Client) List(opts *ListOptions) (*List, error) {
 	}
 
 	return list, nil
+}
+
+// Upload uploads specified an image.
+func (c *Client) Upload(path string) (*Image, error) {
+	// Create multipart/form-data
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	fileBody, err := ioutil.ReadAll(file)
+	if err != nil {
+		return nil, err
+	}
+	fi, err := file.Stat()
+	if err != nil {
+		return nil, err
+	}
+	file.Close()
+
+	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
+	part, err := writer.CreateFormFile("imagedata", fi.Name())
+	if err != nil {
+		return nil, err
+	}
+	part.Write(fileBody)
+
+	err = writer.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	// Be aware that the URL is different from the other API.
+	url := c.UploadEndpoint + "/api/upload"
+	req, err := http.NewRequest("POST", url, body)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Add("Content-Type", writer.FormDataContentType())
+
+	res, err := c.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusOK {
+		return nil, buildErrorResponse(res)
+	}
+
+	img := &Image{}
+	if err = json.NewDecoder(res.Body).Decode(img); err != nil {
+		return nil, err
+	}
+
+	return img, nil
 }
 
 // Delete deletes specified an image.
