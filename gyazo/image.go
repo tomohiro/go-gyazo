@@ -95,18 +95,19 @@ func (c *Client) List(opts *ListOptions) (*List, error) {
 	return list, nil
 }
 
-// Upload uploads specified an image.
+// Upload an image.
 func (c *Client) Upload(path string) (*Image, error) {
-	// Create multipart/form-data
+	// Create multipart/form-data from the specified image file.
+	fi, err := os.Stat(path)
+	if err != nil {
+		return nil, err
+	}
+
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
-	fileBody, err := ioutil.ReadAll(file)
-	if err != nil {
-		return nil, err
-	}
-	fi, err := file.Stat()
+	raw, err := ioutil.ReadAll(file)
 	if err != nil {
 		return nil, err
 	}
@@ -118,7 +119,7 @@ func (c *Client) Upload(path string) (*Image, error) {
 	if err != nil {
 		return nil, err
 	}
-	part.Write(fileBody)
+	part.Write(raw)
 
 	err = writer.Close()
 	if err != nil {
@@ -151,7 +152,7 @@ func (c *Client) Upload(path string) (*Image, error) {
 	return img, nil
 }
 
-// Delete deletes specified an image.
+// Delete an image.
 func (c *Client) Delete(id string) (*Image, error) {
 	url := c.DefaultEndpoint + "/api/images/" + id
 	req, err := http.NewRequest("DELETE", url, nil)
