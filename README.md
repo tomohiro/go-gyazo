@@ -10,13 +10,42 @@ Go library for accessing the Gyazo API
 Usage
 --------------------------------------------------------------------------------
 
-### Upload
+### Create a client to accessing the Gyazo API
+
+Import this package like this:
 
 ```go
-gyazo, _ := gyazo.NewClient("your access token")
-image, err := gyazo.Upload("image.png")
+import "github.com/Tomohiro/go-gyazo/gyazo"
+```
+
+Create a client with your Gyazo access token:
+
+```go
+client, err := gyazo.NewClient("your access token")
 if err != nil {
   return err
 }
-fmt.Println(image.PermalinkURL) // https://gyazo.com/06643943e8dd0374f81bdeab02b71591
+```
+
+### List
+
+```go
+list, _ := gyazo.List(&gyazo.ListOptions{Page: 1, PerPage: 50})
+fmt.Println(list.Meta.TotalCount) // Total count of specified user's images
+for _, img := range *list.Images {
+    fmt.Println(img.PermalinkURL) // http://gyazo.com/8980c52421e452ac3355ca3e5cfe7a0c
+}
+```
+
+### Upload
+
+```go
+image, _ := gyazo.Upload("image.png")
+fmt.Println(image.PermalinkURL) // http://gyazo.com/8980c52421e452ac3355ca3e5cfe7a0c
+```
+
+### Delete
+
+```go
+result, _ := gyazo.Delete("8980c52421e452ac3355ca3e5cfe7a0c")
 ```
