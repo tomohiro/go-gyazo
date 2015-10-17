@@ -21,7 +21,7 @@ import "github.com/Tomohiro/go-gyazo/gyazo"
 Create a client with your Gyazo access token:
 
 ```go
-client, err := gyazo.NewClient("your access token")
+gyazo, err := gyazo.NewClient("your access token")
 if err != nil {
   return err
 }
