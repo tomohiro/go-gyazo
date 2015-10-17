@@ -107,11 +107,11 @@ func (c *Client) Upload(path string) (*Image, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer file.Close()
 	raw, err := ioutil.ReadAll(file)
 	if err != nil {
 		return nil, err
 	}
-	file.Close()
 
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
