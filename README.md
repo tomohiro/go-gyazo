@@ -24,7 +24,7 @@ Create a client with your Gyazo access token:
 ```go
 gyazo, err := gyazo.NewClient("your access token")
 if err != nil {
-  return err
+  panic(err)
 }
 ```
 
