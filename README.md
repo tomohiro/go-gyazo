@@ -3,6 +3,7 @@ Gyazo
 
 [![Build Status](https://img.shields.io/travis/Tomohiro/go-gyazo.svg?style=flat-square)](https://travis-ci.org/Tomohiro/go-gyazo)
 [![GoDoc Reference](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/Tomohiro/go-gyazo/gyazo)
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/Tomohiro/go-gyazo/blob/master/LICENSE)
 
 Go library for accessing the Gyazo API
 
@@ -49,3 +50,11 @@ fmt.Println(image.PermalinkURL) // http://gyazo.com/8980c52421e452ac3355ca3e5cfe
 ```go
 result, _ := gyazo.Delete("8980c52421e452ac3355ca3e5cfe7a0c")
 ```
+
+
+LICENSE
+--------------------------------------------------------------------------------
+
+&copy; 2015 Tomohiro TAIRA.
+
+This project licensed under the MIT license. See [LICENSE](LICENSE) for details.
