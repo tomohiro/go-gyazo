@@ -24,7 +24,7 @@ Create a client with your Gyazo access token:
 ```go
 gyazo, err := gyazo.NewClient("your access token")
 if err != nil {
-  panic(err)
+	panic(err)
 }
 ```
 
@@ -34,7 +34,7 @@ if err != nil {
 list, _ := gyazo.List(&gyazo.ListOptions{Page: 1, PerPage: 50})
 fmt.Println(list.Meta.TotalCount) // Total count of specified user's images
 for _, img := range *list.Images {
-    fmt.Println(img.PermalinkURL) // http://gyazo.com/8980c52421e452ac3355ca3e5cfe7a0c
+	fmt.Println(img.PermalinkURL) // http://gyazo.com/8980c52421e452ac3355ca3e5cfe7a0c
 }
 ```
 
