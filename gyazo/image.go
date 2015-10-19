@@ -8,6 +8,7 @@ import (
 	"mime/multipart"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/google/go-querystring/query"
 )
@@ -195,4 +196,11 @@ func createMeta(h http.Header) Meta {
 		PerPage:     atoi(h["X-Per-Page"][0]),
 		UserType:    h["X-User-Type"][0],
 	}
+}
+
+// atoi is shorthand for strconv.Atoi(s).
+// Golang package docs: https://golang.org/pkg/strconv/#Atoi
+func atoi(s string) int {
+	i, _ := strconv.Atoi(s)
+	return i
 }

@@ -3,7 +3,6 @@ package gyazo
 import (
 	"errors"
 	"net/http"
-	"strconv"
 
 	"golang.org/x/oauth2"
 )
@@ -44,11 +43,4 @@ func NewClient(token string) (*Client, error) {
 	}
 
 	return c, nil
-}
-
-// atoi is shorthand for strconv.Atoi(s).
-// Golang package docs: https://golang.org/pkg/strconv/#Atoi
-func atoi(s string) int {
-	i, _ := strconv.Atoi(s)
-	return i
 }
