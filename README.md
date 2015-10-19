@@ -51,6 +51,8 @@ fmt.Println(image.PermalinkURL) // http://gyazo.com/8980c52421e452ac3355ca3e5cfe
 result, _ := gyazo.Delete("8980c52421e452ac3355ca3e5cfe7a0c")
 ```
 
+For complete usage of go-gyazo, see the full [package docs](https://godoc.org/github.com/Tomohiro/go-gyazo/gyazo).
+
 
 Contributing
 --------------------------------------------------------------------------------
