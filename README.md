@@ -5,7 +5,7 @@ go-gyazo
 [![GoDoc Reference](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/Tomohiro/go-gyazo/gyazo)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/Tomohiro/go-gyazo/blob/master/LICENSE)
 
-go-gyazo is a library for Go for accessing the Gyazo API.
+go-gyazo is a library for Go for accessing the [Gyazo API](https://gyazo.com/api).
 
 
 Usage
