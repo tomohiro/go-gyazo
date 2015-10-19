@@ -19,7 +19,7 @@ Import this package like this:
 import "github.com/Tomohiro/go-gyazo/gyazo"
 ```
 
-Create a client with your Gyazo access token:
+Create a client with your [Gyazo access token](https://gyazo.com/oauth/applications):
 
 ```go
 gyazo, err := gyazo.NewClient("your access token")
@@ -50,6 +50,7 @@ fmt.Println(image.PermalinkURL) // http://gyazo.com/8980c52421e452ac3355ca3e5cfe
 ```go
 result, _ := gyazo.Delete("8980c52421e452ac3355ca3e5cfe7a0c")
 ```
+
 
 Contributing
 --------------------------------------------------------------------------------
