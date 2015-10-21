@@ -1,27 +1,6 @@
 package gyazo
 
-import (
-	"net/http"
-	"net/http/httptest"
-	"testing"
-)
-
-var (
-	mux    *http.ServeMux
-	server *httptest.Server
-	client *Client
-)
-
-func setup() {
-	mux = http.NewServeMux()
-	server = httptest.NewServer(mux)
-	client, _ = NewClient("DUMMY_ACCESS_TOKEN")
-	client.DefaultEndpoint = server.URL
-}
-
-func teardown() {
-	server.Close()
-}
+import "testing"
 
 func TestNewClient(t *testing.T) {
 	c, err := NewClient("DUMMY_ACCESS_TOKEN")

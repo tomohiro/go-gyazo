@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"mime/multipart"
 	"net/http"
-	"os"
 	"strconv"
+	"time"
 
 	"github.com/google/go-querystring/query"
 )
@@ -97,18 +98,7 @@ func (c *Client) List(opts *ListOptions) (*List, error) {
 }
 
 // Upload an image.
-func (c *Client) Upload(path string) (*Image, error) {
-	// Create multipart/form-data from the specified image file.
-	fi, err := os.Stat(path)
-	if err != nil {
-		return nil, err
-	}
-
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
+func (c *Client) Upload(file io.Reader) (*Image, error) {
 	raw, err := ioutil.ReadAll(file)
 	if err != nil {
 		return nil, err
@@ -116,7 +106,8 @@ func (c *Client) Upload(path string) (*Image, error) {
 
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
-	part, err := writer.CreateFormFile("imagedata", fi.Name())
+	filename := time.Now().Format("20060102150405")
+	part, err := writer.CreateFormFile("imagedata", filename)
 	if err != nil {
 		return nil, err
 	}
