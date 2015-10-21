@@ -155,6 +155,9 @@ func TestDelete(t *testing.T) {
 
 	mux.HandleFunc("/api/images/8980c52421e452ac3355ca3e5cfe7a0c",
 		func(w http.ResponseWriter, r *http.Request) {
+			// Set response headers
+			w.Header().Set("Content-Type", "application/json")
+
 			// Set 200 OK as HTTP status code.
 			w.WriteHeader(http.StatusOK)
 
