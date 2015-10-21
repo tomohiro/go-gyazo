@@ -41,7 +41,9 @@ for _, img := range *list.Images {
 ### Upload
 
 ```go
-image, _ := gyazo.Upload("image.png")
+file, _ := os.Open("/your/image/file.png")
+defer file.Close()
+image, _ := gyazo.Upload(file)
 fmt.Println(image.PermalinkURL) // http://gyazo.com/8980c52421e452ac3355ca3e5cfe7a0c
 ```
 
