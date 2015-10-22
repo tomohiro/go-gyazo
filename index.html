@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>go-gyazo by Tomohiro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">go-gyazo</h1>
+      <h2 class="project-tagline">Go library for accessing the Gyazo API</h2>
+      <a href="https://github.com/Tomohiro/go-gyazo" class="btn">View on GitHub</a>
+      <a href="https://github.com/Tomohiro/go-gyazo/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/Tomohiro/go-gyazo/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h2>
+<a id="description" class="anchor" href="#description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Description</h2>
+
+<p>go-gyazo is a library for Go for accessing the <a href="https://gyazo.com/api">Gyazo API</a>.</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<h3>
+<a id="create-a-client-to-accessing-the-gyazo-api" class="anchor" href="#create-a-client-to-accessing-the-gyazo-api" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create a client to accessing the Gyazo API</h3>
+
+<p>Import this package like this:</p>
+
+<div class="highlight highlight-source-go"><pre><span class="pl-k">import</span> <span class="pl-s"><span class="pl-pds">"</span>github.com/Tomohiro/go-gyazo/gyazo<span class="pl-pds">"</span></span></pre></div>
+
+<p>Create a client with your <a href="https://gyazo.com/oauth/applications">Gyazo access token</a>:</p>
+
+<div class="highlight highlight-source-go"><pre><span class="pl-smi">gyazo</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> gyazo.<span class="pl-c1">NewClient</span>(<span class="pl-s"><span class="pl-pds">"</span>your access token<span class="pl-pds">"</span></span>)
+<span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
+    <span class="pl-c1">panic</span>(err)
+}</pre></div>
+
+<h3>
+<a id="list" class="anchor" href="#list" aria-hidden="true"><span class="octicon octicon-link"></span></a>List</h3>
+
+<div class="highlight highlight-source-go"><pre><span class="pl-smi">list</span>, <span class="pl-smi">_</span> <span class="pl-k">:=</span> gyazo.<span class="pl-c1">List</span>(&amp;gyazo.<span class="pl-smi">ListOptions</span>{Page: <span class="pl-c1">1</span>, <span class="pl-v">PerPage</span>: <span class="pl-c1">50</span>})
+fmt.<span class="pl-c1">Println</span>(list.<span class="pl-smi">Meta</span>.<span class="pl-smi">TotalCount</span>) <span class="pl-c">// Total count of specified user's images</span>
+<span class="pl-k">for</span> <span class="pl-smi">_</span>, <span class="pl-smi">img</span> <span class="pl-k">:=</span> <span class="pl-k">range</span> *list.<span class="pl-smi">Images</span> {
+    fmt.<span class="pl-c1">Println</span>(img.<span class="pl-smi">PermalinkURL</span>) <span class="pl-c">// http://gyazo.com/8980c52421e452ac3355ca3e5cfe7a0c</span>
+}</pre></div>
+
+<h3>
+<a id="upload" class="anchor" href="#upload" aria-hidden="true"><span class="octicon octicon-link"></span></a>Upload</h3>
+
+<div class="highlight highlight-source-go"><pre><span class="pl-smi">file</span>, <span class="pl-smi">_</span> <span class="pl-k">:=</span> os.<span class="pl-c1">Open</span>(<span class="pl-s"><span class="pl-pds">"</span>/your/image/file.png<span class="pl-pds">"</span></span>)
+<span class="pl-k">defer</span> file.<span class="pl-c1">Close</span>()
+<span class="pl-smi">image</span>, <span class="pl-smi">_</span> <span class="pl-k">:=</span> gyazo.<span class="pl-c1">Upload</span>(file)
+fmt.<span class="pl-c1">Println</span>(image.<span class="pl-smi">PermalinkURL</span>) <span class="pl-c">// http://gyazo.com/8980c52421e452ac3355ca3e5cfe7a0c</span></pre></div>
+
+<h3>
+<a id="delete" class="anchor" href="#delete" aria-hidden="true"><span class="octicon octicon-link"></span></a>Delete</h3>
+
+<div class="highlight highlight-source-go"><pre><span class="pl-smi">result</span>, <span class="pl-smi">_</span> <span class="pl-k">:=</span> gyazo.<span class="pl-c1">Delete</span>(<span class="pl-s"><span class="pl-pds">"</span>8980c52421e452ac3355ca3e5cfe7a0c<span class="pl-pds">"</span></span>)</pre></div>
+
+<p>For complete usage of go-gyazo, see the full <a href="https://godoc.org/github.com/Tomohiro/go-gyazo/gyazo">package docs</a>.</p>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>Please check out the <a href="https://github.com/Tomohiro/go-gyazo/blob/master/CONTRIBUTING.md">CONTIRBUTING</a> guideline.</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>LICENSE</h2>
+
+<p>© 2015 Tomohiro TAIRA.</p>
+
+<p>This project is licensed under the MIT license. See <a href="https://github.com/Tomohiro/go-gyazo/blob/master/LICENSE">LICENSE</a> for details.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/Tomohiro/go-gyazo">go-gyazo</a> is maintained by <a href="https://github.com/Tomohiro">Tomohiro</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
