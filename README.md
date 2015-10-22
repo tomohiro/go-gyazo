@@ -2,7 +2,7 @@ go-gyazo
 ================================================================================
 
 [![Build Status](https://img.shields.io/travis/Tomohiro/go-gyazo.svg?style=flat-square)](https://travis-ci.org/Tomohiro/go-gyazo)
-[![Code Climate](https://img.shields.io/codeclimate/github/Tomohiro/go-gyazo.svg?style=flat-square)](https://codeclimate.com/github/Tomohiro/go-gyazo)
+[![Coverage Status](https://img.shields.io/coveralls/github/Tomohiro/go-gyazo.svg?style=flat-square)](https://coveralls.io/Tomohiro/go-gyazo)
 [![GoDoc Reference](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/Tomohiro/go-gyazo/gyazo)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/Tomohiro/go-gyazo/blob/master/LICENSE)
 
