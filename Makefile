@@ -11,7 +11,7 @@ help:
 
 test: deps
 	@echo "===> Running tests..."
-	go test -v ./${PACKAGE}
+	go test -v ./${PACKAGE} -cover
 
 deps:
 	@echo "===> Installing runtime dependencies..."
