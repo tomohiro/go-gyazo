@@ -9,6 +9,16 @@ go-gyazo
 go-gyazo is a library for Go for accessing the [Gyazo API](https://gyazo.com/api).
 
 
+Installation
+--------------------------------------------------------------------------------
+
+Use `go get`:
+
+```sh
+$ go get -d github.com/Tomohiro/go-gyazo
+```
+
+
 Usage
 --------------------------------------------------------------------------------
 
