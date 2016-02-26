@@ -15,11 +15,11 @@ test: deps
 
 deps:
 	@echo "===> Installing runtime dependencies..."
-	go get -v ./...
+	@go get github.com/govend/govend
+	govend -v
 
 updatedeps:
 	@echo "===> Updating runtime dependencies..."
-	go clean ./...
-	go get -u -v ./...
+	govend -v -u
 
 .PHONY: help test deps updatedeps
