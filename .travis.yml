@@ -10,7 +10,7 @@ before_install:
 
 script:
   - make test
-  - $HOME/gopath/bin/goveralls -service=travis-ci
+  - $HOME/gopath/bin/goveralls -package=./gyazo -service=travis-ci
 
 notifications:
   email: false
