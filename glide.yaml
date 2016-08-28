@@ -1,0 +1,8 @@
+package: github.com/Tomohiro/go-gyazo
+import:
+- package: github.com/google/go-querystring
+  subpackages:
+  - query
+- package: github.com/pkg/errors
+  version: ^0.7.1
+- package: golang.org/x/oauth2
