@@ -15,11 +15,10 @@ test: deps
 
 deps:
 	@echo "===> Installing runtime dependencies..."
-	@go get github.com/govend/govend
-	govend -v
+	glide install
 
 updatedeps:
 	@echo "===> Updating runtime dependencies..."
-	govend -v -u
+	glide update
 
 .PHONY: help test deps updatedeps

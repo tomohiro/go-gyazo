@@ -1,16 +1,20 @@
-sudo: false
 language: go
 
-go:
-  - 1.6
-
 before_install:
+  - sudo add-apt-repository ppa:masterminds/glide -y
+  - sudo apt-get update -q
+  - sudo apt-get install glide -y
   - go get github.com/mattn/goveralls
   - go get golang.org/x/tools/cmd/cover
 
-script:
-  - make test
-  - $HOME/gopath/bin/goveralls -package=./gyazo -service=travis-ci
+matrix:
+  fast_finish: true
+  include:
+    - go: 1.6
+      script: make test
+
+after_success:
+    - $HOME/gopath/bin/goveralls -package=./gyazo -service=travis-ci
 
 notifications:
   email: false
