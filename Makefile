@@ -15,10 +15,10 @@ test: deps
 
 deps:
 	@echo "===> Installing runtime dependencies..."
-	glide install
+	dep ensure
 
 updatedeps:
 	@echo "===> Updating runtime dependencies..."
-	glide update
+	dep ensure -update
 
 .PHONY: help test deps updatedeps
