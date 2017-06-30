@@ -8,7 +8,7 @@ before_install:
 matrix:
   fast_finish: true
   include:
-    - go: 1.6
+    - go: 1.8
       script: make test
 
 after_success:
