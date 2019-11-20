@@ -15,10 +15,14 @@ test: deps
 
 deps:
 	@echo "===> Installing runtime dependencies..."
-	dep ensure
+	go mod download
+	go mod verify
+	go list -m all
 
 updatedeps:
 	@echo "===> Updating runtime dependencies..."
-	dep ensure -update
+	go get -u ./${PACKAGE}
+	go mod tidy
+	go list -m all
 
 .PHONY: help test deps updatedeps

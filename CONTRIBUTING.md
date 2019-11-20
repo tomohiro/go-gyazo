@@ -1,7 +1,7 @@
 Contributing
 --------------------------------------------------------------------------------
 
-1. Fork it ( https://github.com/Tomohiro/go-gyazo/fork )
+1. Fork it ( https://github.com/tomohiro/go-gyazo/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Run `goimports` or `gofmt -s` to format your codes.
 4. Commit your changes (`git commit -am 'Add some feature'`)
