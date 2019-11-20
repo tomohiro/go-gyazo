@@ -2,16 +2,13 @@ language: go
 sudo: false
 
 before_install:
-  - go get github.com/golang/dep/cmd/dep
   - go get github.com/mattn/goveralls
   - go get golang.org/x/tools/cmd/cover
 
 matrix:
   fast_finish: true
   include:
-    - go: 1.7
-      script: make test
-    - go: 1.8
+    - go: 1.13
       script: make test
 
 after_success:
