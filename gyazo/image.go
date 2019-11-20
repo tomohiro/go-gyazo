@@ -12,7 +12,6 @@ import (
 	"time"
 
 	"github.com/google/go-querystring/query"
-	"github.com/pkg/errors"
 )
 
 // Image represents an uploaded image.
@@ -64,21 +63,21 @@ func (c *Client) List(opts *ListOptions) (*List, error) {
 	url := c.DefaultEndpoint + "/api/images"
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to create a new request")
+		return nil, fmt.Errorf("failed to create a new request: %w", err)
 	}
 
 	// Build and set query parameters
 	if opts != nil {
 		params, err := query.Values(opts)
 		if err != nil {
-			return nil, errors.Wrap(err, "failed to build query parameters")
+			return nil, fmt.Errorf("failed to build query parameters: %w", err)
 		}
 		req.URL.RawQuery = params.Encode()
 	}
 
 	res, err := c.client.Do(req)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to a get request")
+		return nil, fmt.Errorf("failed to a get request: %w", err)
 	}
 	defer res.Body.Close()
 
@@ -92,7 +91,7 @@ func (c *Client) List(opts *ListOptions) (*List, error) {
 	}
 
 	if err = json.NewDecoder(res.Body).Decode(&list.Images); err != nil {
-		return nil, errors.Wrap(err, "failed to decode a responsed JSON")
+		return nil, fmt.Errorf("failed to decode a responsed JSON: %w", err)
 	}
 
 	return list, nil
@@ -102,7 +101,7 @@ func (c *Client) List(opts *ListOptions) (*List, error) {
 func (c *Client) Upload(file io.Reader) (*Image, error) {
 	raw, err := ioutil.ReadAll(file)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to read an image")
+		return nil, fmt.Errorf("failed to read an image: %w", err)
 	}
 
 	body := &bytes.Buffer{}
@@ -110,26 +109,26 @@ func (c *Client) Upload(file io.Reader) (*Image, error) {
 	filename := time.Now().Format("20060102150405")
 	part, err := writer.CreateFormFile("imagedata", filename)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to create a form data")
+		return nil, fmt.Errorf("failed to create a form data: %w", err)
 	}
 	part.Write(raw)
 
 	err = writer.Close()
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to close a multipart writer")
+		return nil, fmt.Errorf("failed to close a multipart writer: %w", err)
 	}
 
 	// Be aware that the URL is different from the other API.
 	url := c.UploadEndpoint + "/api/upload"
 	req, err := http.NewRequest("POST", url, body)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to create a new request")
+		return nil, fmt.Errorf("failed to create a new request: %w", err)
 	}
 	req.Header.Add("Content-Type", writer.FormDataContentType())
 
 	res, err := c.client.Do(req)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to upload request")
+		return nil, fmt.Errorf("failed to upload request: %w", err)
 	}
 	defer res.Body.Close()
 
@@ -139,7 +138,7 @@ func (c *Client) Upload(file io.Reader) (*Image, error) {
 
 	img := &Image{}
 	if err = json.NewDecoder(res.Body).Decode(img); err != nil {
-		return nil, errors.Wrap(err, "failed to decode a responsed JSON")
+		return nil, fmt.Errorf("failed to decode a responsed JSON: %w", err)
 	}
 
 	return img, nil
@@ -150,12 +149,12 @@ func (c *Client) Delete(id string) (*Image, error) {
 	url := c.DefaultEndpoint + "/api/images/" + id
 	req, err := http.NewRequest("DELETE", url, nil)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to create a new request")
+		return nil, fmt.Errorf("failed to create a new request: %w", err)
 	}
 
 	res, err := c.client.Do(req)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to delete request")
+		return nil, fmt.Errorf("failed to delete request: %w", err)
 	}
 	defer res.Body.Close()
 
@@ -165,7 +164,7 @@ func (c *Client) Delete(id string) (*Image, error) {
 
 	img := &Image{}
 	if err = json.NewDecoder(res.Body).Decode(img); err != nil {
-		return nil, errors.Wrap(err, "failed to decode a responsed JSON")
+		return nil, fmt.Errorf("failed to decode a responsed JSON: %w", err)
 	}
 
 	return img, nil
