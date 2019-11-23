@@ -1,7 +1,7 @@
 go-gyazo
 ================================================================================
 
-[![Build Status](https://img.shields.io/travis/tomohiro/go-gyazo.svg?style=flat-square)](https://travis-ci.org/tomohiro/go-gyazo)
+[![Build Status](https://img.shields.io/travis/com/tomohiro/go-gyazo.svg?style=flat-square)](https://travis-ci.com/tomohiro/go-gyazo)
 [![Coverage Status](https://img.shields.io/coveralls/tomohiro/go-gyazo.svg?style=flat-square)](https://coveralls.io/github/tomohiro/go-gyazo)
 [![Go Report Card](https://goreportcard.com/badge/github.com/tomohiro/go-gyazo?style=flat-square)](https://goreportcard.com/report/github.com/tomohiro/go-gyazo)
 [![GoDoc Reference](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/tomohiro/go-gyazo/gyazo)
