@@ -1,15 +1,21 @@
 language: go
-sudo: false
+go:
+  - 1.13
+  - master
+
+jobs:
+  fast_finish: true
 
 before_install:
   - go get github.com/mattn/goveralls
   - go get golang.org/x/tools/cmd/cover
 
-matrix:
-  fast_finish: true
-  include:
-    - go: 1.13
-      script: make test
+install:
+  - make deps
+
+script:
+  - make lint
+  - make test
 
 after_success:
     - $HOME/gopath/bin/goveralls -package=./gyazo -service=travis-ci
