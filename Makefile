@@ -1,28 +1,30 @@
-# Project information
-PACKAGE=gyazo
-
 # Tasks
+.PHONY: help
 help:
 	@echo "Please type: make [target]"
-	@echo "  test         Run tests"
 	@echo "  deps         Install runtime dependencies"
 	@echo "  updatedeps   Update runtime dependencies"
+	@echo "  lint 		  Lint codes"
+	@echo "  test         Run tests"
 	@echo "  help         Show this help messages"
 
-test: deps
-	@echo "===> Running tests..."
-	go test -v ./${PACKAGE} -cover
-
+.PHONY: deps
 deps:
 	@echo "===> Installing runtime dependencies..."
 	go mod download
-	go mod verify
-	go list -m all
 
+.PHONY: updatedeps
 updatedeps:
 	@echo "===> Updating runtime dependencies..."
-	go get -u ./${PACKAGE}
-	go mod tidy
-	go list -m all
+	go get -u ./...
 
-.PHONY: help test deps updatedeps
+.PHONY: lint
+lint: deps
+	@echo "===> Running lint..."
+	go vet ./...
+	golint -set_exit_status ./...
+
+.PHONY: test
+test: deps
+	@echo "===> Running tests..."
+	go test -v ./... -cover
