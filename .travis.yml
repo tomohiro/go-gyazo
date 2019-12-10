@@ -3,9 +3,6 @@ go:
   - 1.13
   - master
 
-jobs:
-  fast_finish: true
-
 before_install:
   - go get -u golang.org/x/lint/golint
   - go get golang.org/x/tools/cmd/cover
